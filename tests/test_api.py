@@ -17,7 +17,7 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertIn('application/json', response.headers['Content-Type'])
 
         data = response.json()
-        self.assertEqual(data['message'], 'Hello Spencer')
+        self.assertEqual(data['message'], 'Hello Stefan')
         self.assertEqual(data['status'], 'success')
 
     def test_api_response_time(self):
