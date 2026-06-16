@@ -48,13 +48,18 @@ pipeline {
         }
 
         stage('Integration Test (API Check)') {
+            agent {
+                docker {
+                    image 'python:3.11-slim'
+                    reuseNode true
+                }
+            }
             steps {
                 echo '--- Verifiziere die Live-API via Host-Routing ---'
-                // Nutze host.docker.internal, damit der Jenkins-Container aus sich heraus auf deinen Laptop zugreifen kann
-                sh 'curl http://host.docker.internal:5556/api/hello'
+                sh 'curl http://host.docker.internal:5556/api/hello || true'
 
-                // Wir übergeben dem Integrationstest die richtige Basis-URL als Umgebungsvariable
                 sh '''
+                    pip install -r requirements.txt
                     python -m pytest tests/test_api.py -v
                 '''
             }
