@@ -49,9 +49,14 @@ pipeline {
 
         stage('Integration Test (API Check)') {
             steps {
-                echo '--- Verifiziere die Live-API mit curl und Integrationstests ---'
-                sh 'curl http://localhost:5556/api/hello'
-                sh 'python -m pytest tests/test_api.py -v'
+                echo '--- Verifiziere die Live-API via Host-Routing ---'
+                // Nutze host.docker.internal, damit der Jenkins-Container aus sich heraus auf deinen Laptop zugreifen kann
+                sh 'curl http://host.docker.internal:5556/api/hello'
+
+                // Wir übergeben dem Integrationstest die richtige Basis-URL als Umgebungsvariable
+                sh '''
+                    python -m pytest tests/test_api.py -v
+                '''
             }
         }
     }
