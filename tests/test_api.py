@@ -5,7 +5,6 @@ from urllib.parse import urljoin
 
 class TestAPIEndpoints(unittest.TestCase):
     def setUp(self):
-        # Wenn wir in Jenkins (Docker) laufen, nutzen wir host.docker.internal, sonst localhost
         self.base_url = "http://host.docker.internal:5556"
         self.headers = {
             'Content-Type': 'application/json',

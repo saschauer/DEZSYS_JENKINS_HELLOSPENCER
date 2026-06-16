@@ -22,7 +22,7 @@ class TestHelloSpencer(unittest.TestCase):
     def test_hello_endpoint_data(self):
         response = self.app.get('/api/hello')
         data = json.loads(response.data.decode())
-        self.assertEqual(data['message'], 'Hello Spencer')
+        self.assertEqual(data['message'], 'Hello Stefan')
         self.assertEqual(data['status'], 'success')
 
 if __name__ == '__main__':
